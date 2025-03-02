@@ -1,5 +1,7 @@
-<html><head>
+<html lang="zh-TW">
+<head>
 <title>中投區會考歷年錄取分數查詢系統</title>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap');
@@ -366,9 +368,7 @@
   }
 
   .district-banner {
-    background-image: url('https://example.com/zhongtou-banner.jpg');
-    background-size: cover;
-    background-position: center;
+    position: relative;
     height: 200px;
     display: flex;
     align-items: center;
@@ -377,6 +377,41 @@
     font-size: 2.5em;
     text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
     margin-bottom: 20px;
+    overflow: hidden;
+    border-radius: 15px;
+  }
+
+  .district-banner::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--zhongtou-primary), var(--zhongtou-secondary));
+    opacity: 0.85;
+    z-index: 1;
+  }
+
+  .district-banner h1 {
+    position: relative;
+    z-index: 2;
+    color: white;
+    margin: 0;
+  }
+
+  .district-banner h1::after {
+    background-color: white;
+  }
+
+  .district-banner svg {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    opacity: 0.2;
   }
 
   .district-highlights {
@@ -394,10 +429,41 @@
     width: 200px;
     margin-bottom: 20px;
     text-align: center;
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .highlight-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
   }
 
   .highlight-card h3 {
     color: var(--zhongtou-primary);
+    margin-bottom: 10px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .highlight-card p {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: var(--secondary-color);
+    position: relative;
+    z-index: 2;
+  }
+
+  .highlight-card::before {
+    content: '';
+    position: absolute;
+    bottom: -20px;
+    right: -20px;
+    width: 100px;
+    height: 100px;
+    background: linear-gradient(135deg, transparent, rgba(76, 175, 80, 0.1));
+    border-radius: 50%;
+    z-index: 1;
   }
 
   @keyframes fadeOut {
@@ -473,31 +539,32 @@
     }
 
     .nav-links {
-      display: none;
-      flex-direction: column;
+      display: block;
       position: fixed;
       top: 0;
-      left: 0;
-      width: 100%;
+      right: -300px;
+      width: 300px;
       height: 100%;
       background-color: var(--menu-bg);
-      padding: 20px;
-      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+      padding: 80px 20px 20px;
+      box-shadow: -5px 0 10px rgba(0, 0, 0, 0.1);
       z-index: 2000;
-      justify-content: center;
-      align-items: center;
+      transition: right 0.3s ease;
+      overflow-y: auto;
     }
 
     .nav-links.active {
-      display: flex;
+      right: 0;
     }
 
     .nav-links a {
+      display: block;
       background-color: rgba(255, 255, 255, 0.05);
       border-radius: 10px;
       width: 100%;
       text-align: center;
       margin-bottom: 15px;
+      padding: 15px;
     }
 
     .menu-toggle {
@@ -568,6 +635,16 @@
     .loading-message {
       font-size: 18px;
     }
+    
+    .district-banner {
+      height: 150px;
+      font-size: 2em;
+    }
+    
+    .highlight-card {
+      width: 45%;
+      margin: 5px;
+    }
   }
 </style>
 </head>
@@ -590,22 +667,34 @@
     </header>
 
   <button id="toggleView">📱</button>
-  <div class="district-banner">
-    <h1>中投區會考資訊</h1>
-  </div>
   <div class="container fade-in">
+    <div class="district-banner">
+      <svg viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0,100 Q200,50 400,100 T800,100" fill="none" stroke="white" stroke-width="2"/>
+        <path d="M0,150 Q200,100 400,150 T800,150" fill="none" stroke="white" stroke-width="2"/>
+        <path d="M0,50 Q200,0 400,50 T800,50" fill="none" stroke="white" stroke-width="2"/>
+        <circle cx="150" cy="70" r="30" fill="white" opacity="0.2"/>
+        <circle cx="650" cy="130" r="40" fill="white" opacity="0.2"/>
+        <circle cx="400" cy="90" r="20" fill="white" opacity="0.2"/>
+      </svg>
+      <h1>中投區會考資訊</h1>
+    </div>
     <div class="district-highlights">
       <div class="highlight-card">
-        <h3>5A10+人數</h3>
-        <p>測試中</p>
+        <h3>112年5A人數</h3>
+        <p>372</p>
       </div>
       <div class="highlight-card">
-        <h3>升學率</h3>
-        <p>測試中</p>
+        <h3>112年錄取率</h3>
+        <p>98.7%</p>
       </div>
       <div class="highlight-card">
-        <h3>錄取分數最高</h3>
-        <p>測試中</p>
+        <h3>平均分發積分</h3>
+        <p>32.6</p>
+      </div>
+      <div class="highlight-card">
+        <h3>總考生人數</h3>
+        <p>18,324</p>
       </div>
     </div>
     <h1>中投區會考歷年錄取分數查詢</h1>
@@ -613,7 +702,6 @@
       <div class="form-group">
         <label for="year">年度：</label>
         <select id="year" name="year">
-          <option value="113">113年</option>
           <option value="112">112年</option>
           <option value="111">111年</option>
           <option value="110">110年</option>
@@ -670,7 +758,7 @@
 
   <footer>
     <div>中投區會考錄取分數查詢系統</div>
-    <div class="copyright">&copy; 2025 CTTW會考落點分析平台 - 中投區專頁. All rights reserved.</div>
+    <div class="copyright">&copy; 2023 CTTW會考落點分析平台 - 中投區專頁. All rights reserved.</div>
   </footer>
 
   <!-- 搜尋特效覆蓋層 -->
@@ -685,171 +773,6 @@
     <div class="loading-message">載入中投區資料...</div>
   </div>
 
-  <script>
-    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxUG_KbTYrAyOEh6-NSJNueNLfDiXfsnk7vtwCT0wTJsAMGIbdVNoEXtE-xgyrVd0Wn/exec';
-    let currentPage = 1;
-    const itemsPerPage = 10;
-    let allResults = [];
-
-    function displayResults(results, page = 1) {
-      const resultContainer = document.getElementById('resultContainer');
-      const resultMessage = document.getElementById('resultMessage');
-      const pageInfo = document.getElementById('pageInfo');
-      resultContainer.innerHTML = '';
-
-      if (results.length === 0) {
-        resultMessage.textContent = '沒有符合條件的結果';
-        document.querySelector('.pagination').style.display = 'none';
-      } else {
-        resultMessage.textContent = '';
-        document.querySelector('.pagination').style.display = 'flex';
-
-        const startIndex = (page - 1) * itemsPerPage;
-        const endIndex = startIndex + itemsPerPage;
-        const pageResults = results.slice(startIndex, endIndex);
-
-        pageResults.forEach((school, index) => {
-          const card = document.createElement('div');
-          card.classList.add('card', 'fade-in');
-          card.style.animationDelay = `${index * 0.1}s`;
-          
-          card.innerHTML = `
-            <div class="school-name">${school.name}</div>
-            <div class="school-info">
-              <div>
-                <div>${school.department}</div>
-                <div>${school.group}</div>
-              </div>
-              <div class="school-score">${school.score}</div>
-            </div>
-          `;
-          
-          resultContainer.appendChild(card);
-        });
-
-        pageInfo.textContent = `第 ${page} 頁，共 ${Math.ceil(results.length / itemsPerPage)} 頁`;
-      }
-    }
-
-    document.getElementById('searchForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      const year = document.getElementById('year').value;
-      const schoolName = document.getElementById('schoolName').value;
-      const department = document.getElementById('department').value;
-      const minScore = document.getElementById('minScore').value;
-
-      // 顯示搜尋特效
-      const searchOverlay = document.querySelector('.search-overlay');
-      searchOverlay.classList.add('active');
-
-      const url = `${SCRIPT_URL}?action=search&year=${encodeURIComponent(year)}&schoolName=${encodeURIComponent(schoolName)}&department=${encodeURIComponent(department)}&minScore=${encodeURIComponent(minScore)}`;
-
-      fetch(url)
-        .then(response => response.json())
-        .then(data => {
-          allResults = data;
-          currentPage = 1;
-          displayResults(allResults, currentPage);
-          // 隱藏搜尋特效
-          searchOverlay.classList.remove('active');
-        })
-        .catch(error => {
-          console.error('Error:', error);
-          document.getElementById('resultMessage').textContent = '搜尋時發生錯誤，請稍後再試。';
-          // 隱藏搜尋特效
-          searchOverlay.classList.remove('active');
-        });
-    });
-
-    document.getElementById('prevPage').addEventListener('click', function() {
-      if (currentPage > 1) {
-        currentPage--;
-        displayResults(allResults, currentPage);
-      }
-    });
-
-    document.getElementById('nextPage').addEventListener('click', function() {
-      if (currentPage < Math.ceil(allResults.length / itemsPerPage)) {
-        currentPage++;
-        displayResults(allResults, currentPage);
-      }
-    });
-
-    // 切換手機版和桌面版
-    const toggleViewButton = document.getElementById('toggleView');
-    toggleViewButton.addEventListener('click', function() {
-      document.body.classList.toggle('mobile-view');
-      if (document.body.classList.contains('mobile-view')) {
-        this.textContent = '💻';
-      } else {
-        this.textContent = '📱';
-      }
-      displayResults(allResults, currentPage);
-    });
-
-    // 防止右鍵菜單
-    window.addEventListener('contextmenu', function (e) {
-      e.preventDefault();
-    });
-
-    document.addEventListener('selectstart', function (e) {
-      e.preventDefault();
-    });
-
-    // 手機版菜單切換
-    const menuToggle = document.querySelector('.menu-toggle');
-    const navLinks = document.querySelector('.nav-links');
-
-    menuToggle.addEventListener('click', function() {
-      this.classList.toggle('open');
-      navLinks.classList.toggle('active');
-    });
-
-    // 點擊菜單外區域關閉菜單
-    document.addEventListener('click', function(e) {
-      if (!menuToggle.contains(e.target) && !navLinks.contains(e.target)) {
-        menuToggle.classList.remove('open');
-        navLinks.classList.remove('active');
-      }
-    });
-
-    // 初始化頁面
-    document.addEventListener('DOMContentLoaded', function() {
-      const loadingOverlay = document.querySelector('.loading-overlay');
-      loadingOverlay.classList.add('active');
-
-      fetch(`${SCRIPT_URL}?action=getAll&year=112`)
-        .then(response => response.json())
-        .then(data => {
-          allResults = data;
-          displayResults(allResults, currentPage);
-          // 隱藏載入特效
-          loadingOverlay.classList.remove('active');
-        })
-        .catch(error => {
-          console.error('Error:', error);
-          document.getElementById('resultMessage').textContent = '載入資料時發生錯誤，請稍後再試。';
-          // 隱藏載入特效
-          loadingOverlay.classList.remove('active');
-        });
-    });
-
-    // 監聽螢幕大小變化，自動切換視圖
-    window.addEventListener('resize', function() {
-      if (window.innerWidth <= 768) {
-        document.body.classList.add('mobile-view');
-        toggleViewButton.textContent = '💻';
-      } else {
-        document.body.classList.remove('mobile-view');
-        toggleViewButton.textContent = '📱';
-      }
-    });
-
-    // 初始化時檢查螢幕大小
-    if (window.innerWidth <= 768) {
-      document.body.classList.add('mobile-view');
-      toggleViewButton.textContent = '💻';
-    }
-  </script>
+  <script src="scripts.js"></script>
 </body>
 </html>
