@@ -55,11 +55,11 @@ function displayResults(results, page = 1) {
       card.innerHTML = `
         <div class="school-name">${school.name}</div>
         <div class="school-info">
-          <div>
-            <div>${school.department}</div>
-            <div>${school.group || ''}</div>
-          </div>
           <div class="school-score">${school.score}</div>
+          <div class="department-info">
+            <div class="department-name">${school.department}</div>
+            ${school.group ? `<div class="group-name">${school.group}</div>` : ''}
+          </div>
         </div>
         <button class="compare-btn ${isInComparison ? 'active' : ''}" data-index="${index}">
           ${isInComparison ? '移除比較' : '加入比較'}
